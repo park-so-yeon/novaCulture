@@ -20,3 +20,7 @@
 *.jar
 *.war
 *.ear
+
+#white list
+!/resources/static/eunni/
+!/resources/static/eunni/**
