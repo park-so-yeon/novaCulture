@@ -17,14 +17,13 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable()) // 권장되는 새로운 문법
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/**").permitAll() // 로그인, 회원가입은 인증 없이 접근 가능
-                        .anyRequest().authenticated() // 나머지 경로는 인증 필요
-                )
-                .formLogin(form -> form.disable())
-                .httpBasic(basic -> basic.disable());
+        http.csrf(csrf -> csrf.disable()) // 권장되는 새로운 문법
+            .authorizeHttpRequests(auth -> auth
+                    .requestMatchers("/api/**").permitAll() // 로그인, 회원가입은 인증 없이 접근 가능
+                    .anyRequest().authenticated() // 나머지 경로는 인증 필요
+            )
+            .formLogin(form -> form.disable())
+            .httpBasic(basic -> basic.disable());
 
         return http.build();
     }

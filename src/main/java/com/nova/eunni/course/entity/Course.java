@@ -26,6 +26,8 @@ public class Course {
     /** 강좌 설명 */
     private String description;
 
+    private String imageUrl;
+
     /** 생성일 */
     private LocalDateTime createdAt;
 

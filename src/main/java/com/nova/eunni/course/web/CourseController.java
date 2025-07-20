@@ -1,13 +1,12 @@
 package com.nova.eunni.course.web;
 
+import com.nova.eunni.course.dto.CourseRequest;
 import com.nova.eunni.course.dto.CourseResponse;
 import com.nova.eunni.course.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,7 +28,16 @@ public class CourseController {
     @PostMapping("/courseList")
     public ResponseEntity<List<CourseResponse>> getAllCourses() {
         List<CourseResponse> courses = courseService.getAllCourses();
+        System.out.println(courses.toString());
         return ResponseEntity.ok(courses);
     }
 
+    /**
+     * 강좌 기본 정보 저장
+     */
+    @PostMapping("/saveCourseBasic")
+    public ResponseEntity<CourseResponse> createCourse(@RequestBody CourseRequest request) {
+        CourseResponse response = courseService.createCourse(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
 }
