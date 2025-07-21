@@ -21,7 +21,7 @@ public class Course {
     private String id;
 
     /** 강좌명 */
-    private String name;
+    private String courseName;
 
     /** 강좌 설명 */
     private String description;
@@ -34,6 +34,9 @@ public class Course {
     /** 수정일 */
     private LocalDateTime updatedAt;
 
+    private String regID;
+
+    private String updId;
     /**
      * 교시별 스케줄 목록
      * CourseSchedule 클래스는 별도 정의 필요

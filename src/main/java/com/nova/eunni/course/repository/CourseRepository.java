@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface CourseRepository extends MongoRepository<Course, String> {
     // 기본 CRUD 외에 필요시 커스텀 메서드를 추가하세요
-    List<Course> findByNameContaining(String keyword);
+    List<Course> findByCourseNameContaining(String keyword);
 }

@@ -7,8 +7,11 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -19,6 +22,19 @@ public class AuthController {
     @Autowired
     public AuthController(AuthService authService) {
         this.authService = authService;
+    }
+
+    @GetMapping("/adminSession")
+    public ResponseEntity<?> checkSession(HttpSession session) {
+        if (session == null || session.getAttribute("LOGIN_USER") == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Session expired");
+        }
+
+        LoginResponse loginUser = (LoginResponse) session.getAttribute("LOGIN_USER");
+        return ResponseEntity.ok(Map.of(
+                "userId", loginUser.getUserId(),
+                "userName", loginUser.getUserName()
+        ));
     }
 
     @PostMapping("/login")

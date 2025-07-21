@@ -14,7 +14,7 @@ public class CourseRequest {
 
     @NotBlank(message = "강좌명은 필수 입력입니다.")
     @Size(max = 100, message = "강좌명은 최대 100자까지 입력 가능합니다.")
-    private String name;
+    private String courseName;
 
     @Size(max = 500, message = "설명은 최대 500자까지 입력 가능합니다.")
     private String description;
