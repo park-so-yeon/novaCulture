@@ -9,23 +9,28 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 public class LoginCheckInterceptor implements HandlerInterceptor {
 
-    private static final int MAX_INACTIVE_INTERVAL = 1800; // 30분
-
     @Override
     public boolean preHandle(@NonNull HttpServletRequest request,
                              @NonNull HttpServletResponse response,
                              @NonNull Object handler) throws Exception {
 
-        // 프리플라이트(OPTIONS) 요청은 통과
+        // 1. CORS를 위한 OPTIONS 요청은 무조건 통과
         if (HttpMethod.OPTIONS.matches(request.getMethod())) {
             return true;
         }
 
+        // 2. WebConfig에서 제외했지만, 한 번 더 확실히 경로 체크 (선택 사항)
+        String requestURI = request.getRequestURI();
+        if (requestURI.startsWith("/api/signup/")) {
+            return true;
+        }
+
+        // 3. 세션 체크
         HttpSession session = request.getSession(false);
         boolean isLoggedIn = (session != null && session.getAttribute("LOGIN_USER") != null);
 
-        System.out.println("===============================isLoggedIn : "+ isLoggedIn);
         if (!isLoggedIn) {
+            // 세션이 없으면 401 에러를 반환하며 요청을 중단시킴 [cite: 187, 188]
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return false;
         }

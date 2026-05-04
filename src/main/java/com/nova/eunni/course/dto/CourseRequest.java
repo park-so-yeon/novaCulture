@@ -20,5 +20,5 @@ public class CourseRequest {
     private String description;
 
     /** 업로드된 이미지 파일의 참조 ID */
-    private String imageUploadId;
+    private Long imageUploadId;
 }

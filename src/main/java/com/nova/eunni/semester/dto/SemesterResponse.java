@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class SemesterResponse {
-    private String id;
+    private Long id;
     private String semesterName;
     private LocalDate startDate;
     private LocalDate endDate;

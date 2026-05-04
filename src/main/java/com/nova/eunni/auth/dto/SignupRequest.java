@@ -14,7 +14,11 @@ public class SignupRequest {
     private String address;
     private String userName;
     private LocalDateTime createdAt;
-    private String isAdAgreed;
+    private boolean adAgreed;
+
+    public boolean isAdAgreed() {
+        return adAgreed;
+    }
 
     @Override
     public String toString() {
@@ -25,4 +29,4 @@ public class SignupRequest {
                 ", email='" + email + '\'' +
                 '}';
     }
-} 
+}

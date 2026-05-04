@@ -1,8 +1,9 @@
 package com.nova.eunni.course.entity;
 
+import jakarta.persistence.*; // JPA 어노테이션 사용
 import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,33 +15,35 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Document(collection = "courses")
+@Entity
+@Table(name = "courses")
 public class Course {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // MySQL auto_increment
+    private Long id;
 
-    /** 강좌명 */
+    @Column(nullable = false)
     private String courseName;
 
-    /** 강좌 설명 */
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     private String imageUrl;
 
-    /** 생성일 */
+    @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    /** 수정일 */
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     private String regID;
 
     private String updId;
-    /**
-     * 교시별 스케줄 목록
-     * CourseSchedule 클래스는 별도 정의 필요
-     */
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "course_id")
     @Builder.Default
     private List<CourseSchedule> schedules = new ArrayList<>();
 }

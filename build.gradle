@@ -20,9 +20,12 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
-	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    // 이 줄을 추가하세요 (Spring Data JPA 라이브러리)
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    // MySQL 연결을 위한 드라이버 (이미 있다면 패스)
+    runtimeOnly 'com.mysql:mysql-connector-j'
     // JavaMail API
-    implementation 'com.sun.mail:jakarta.mail:2.0.1' // 최신 버전 확인 후 사용 권장
+    implementation 'com.sun.mail:jakarta.mail:2.0.2' // 최신 버전 확인 후 사용 권장
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
